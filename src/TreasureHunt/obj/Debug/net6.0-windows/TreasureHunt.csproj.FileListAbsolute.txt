@@ -1,0 +1,17 @@
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.csproj.AssemblyReference.cache
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.Form1.resources
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.csproj.GenerateResource.cache
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.GeneratedMSBuildEditorConfig.editorconfig
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.AssemblyInfoInputs.cache
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.AssemblyInfo.cs
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.csproj.CoreCompileInputs.cache
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\bin\Debug\net6.0-windows\TreasureHunt.exe
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\bin\Debug\net6.0-windows\TreasureHunt.deps.json
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\bin\Debug\net6.0-windows\TreasureHunt.runtimeconfig.json
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\bin\Debug\net6.0-windows\TreasureHunt.dll
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\bin\Debug\net6.0-windows\TreasureHunt.pdb
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.dll
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\refint\TreasureHunt.dll
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.pdb
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\TreasureHunt.genruntimeconfig.cache
+E:\Kulyah\Semester 4\Strategi Algoritma\Tubes2\trshnt\TreasureHunt\obj\Debug\net6.0-windows\ref\TreasureHunt.dll
