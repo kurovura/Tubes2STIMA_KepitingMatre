@@ -54,5 +54,36 @@ namespace TreasureHunt
             }
             return (-1, -1);
         }
+
+        public static bool IsValidGrid(char[,] inputGrid)
+        {
+            bool flag = true;
+            int i = 0;
+            int j = 0;
+            while(flag && i < inputGrid.GetLength(0))
+            {
+                while (flag && j < inputGrid.GetLength(1))
+                {
+                    int k = 0;
+                    while (flag && k<4)
+                    {
+                        if (!IsValidChar(inputGrid[i,j]))
+                        {
+                            flag = false;
+                        }
+                        k++;
+                    }
+                    j++;
+                }
+                i++;
+            }
+            return flag;
+        }
+
+        public static bool IsValidChar(char c)
+        {
+            char[] validChars = new char[] { 'K', 'R', 'T', 'X' };
+            return Array.IndexOf(validChars, c) != -1;
+        }
     }
 }

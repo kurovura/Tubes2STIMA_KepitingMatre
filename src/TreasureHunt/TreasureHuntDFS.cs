@@ -8,33 +8,34 @@ namespace TreasureHunt
     public class TreasureHunterDFS
     {
         private char[,] grid;
-        private bool[,] visited;
+        private int rows;
+        private int cols;
         private int treasureCount;
-        private int startX, startY;
-        private int[] dx = new int[] { 0, 1, 0, -1 }; // right, down, left, up
-        private int[] dy = new int[] { 1, 0, -1, 0 }; // right, down, left, up
-        public int countNodes = 0;
-        public Stopwatch elapsedTime = new Stopwatch();
+        private (int row, int col) start;
+        private List<(int row, int col)> treasures = new List<(int row, int col)>();
+        private string shortestRoute = "";
+        private int minSteps = Int32.MaxValue;
+        private int nodesChecked = 0;
+        private Stopwatch elapsedTime = new Stopwatch();
 
-        public TreasureHunterDFS(char[,] inputGrid)
+        public TreasureHunterDFS(char[,] grid)
         {
-            grid = inputGrid;
-            visited = new bool[grid.GetLength(0), grid.GetLength(1)];
-            treasureCount = 0;
-            startX = -1;
-            startY = -1;
-            for (int i = 0; i < grid.GetLength(0); i++)
+            this.grid = grid;
+            rows = grid.GetLength(0);
+            cols = grid.GetLength(1);
+
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
+                for (int j = 0; j < cols; j++)
                 {
                     if (grid[i, j] == 'K')
                     {
-                        startX = i;
-                        startY = j;
+                        start = (i, j);
                     }
                     else if (grid[i, j] == 'T')
                     {
                         treasureCount++;
+                        treasures.Add((i, j));
                     }
                 }
             }
@@ -42,67 +43,58 @@ namespace TreasureHunt
 
         public string FindShortestRoute()
         {
-            string shortestRoute = "";
-            int shortestSteps = int.MaxValue;
+
             elapsedTime.Start();
-            DFS(startX, startY, "", 0, ref shortestRoute, ref shortestSteps, ref countNodes);
+
+            DFS(start.row, start.col, "", new bool[rows, cols], 0);
+
             elapsedTime.Stop();
+
             return shortestRoute;
         }
 
-        private void DFS(int x, int y, string route, int steps, ref string shortestRoute, ref int shortestSteps, ref int nodes)
+        public int GetNodes()
         {
-            if (treasureCount == 0)
-            {
-                if (steps < shortestSteps)
-                {
-                    shortestRoute = route;
-                    shortestSteps = steps;
-                }
-                return;
-            }
-            visited[x, y] = true;
-            nodes++;
-            for (int i = 0; i < 4; i++)
-            {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                if (nx >= 0 && nx < grid.GetLength(0) && ny >= 0 && ny < grid.GetLength(1) && !visited[nx, ny] && grid[nx, ny] != 'X')
-                {
-                    int treasureCountBefore = treasureCount;
-                    if (grid[nx, ny] == 'T')
-                    {
-                        treasureCount--;
-                    }
-                    DFS(nx, ny, route + GetDirection(i), steps + 1, ref shortestRoute, ref shortestSteps, ref nodes);
-                    if (grid[nx, ny] == 'T')
-                    {
-                        treasureCount++;
-                    }
-                    treasureCount = treasureCountBefore;
-                }
-            }
-            visited[x, y] = false;
+            return nodesChecked;
         }
 
-        private char GetDirection(int i)
+        public long GetElapsedTime()
         {
-            if (i == 0)
+            return elapsedTime.ElapsedMilliseconds;
+        }
+
+
+        private void DFS(int row, int col, string route, bool[,] visited, int steps)
+        {
+            if (row < 0 || row >= rows || col < 0 || col >= cols || visited[row, col] || grid[row, col] == 'X')
+                return;
+
+            visited[row, col] = true;
+            nodesChecked++;
+
+            if (grid[row, col] == 'T')
+                treasureCount--;
+
+            if (treasureCount == 0)
             {
-                return 'R';
+                if (steps < minSteps)
+                {
+                    minSteps = steps;
+                    shortestRoute = route;
+                }
+                visited[row, col] = false;
+                treasureCount++;
+                return;
             }
-            else if (i == 1)
-            {
-                return 'D';
-            }
-            else if (i == 2)
-            {
-                return 'L';
-            }
-            else
-            {
-                return 'U';
-            }
+
+            DFS(row + 1, col, route + "D", visited, steps + 1);
+            DFS(row - 1, col, route + "U", visited, steps + 1);
+            DFS(row, col + 1, route + "R", visited, steps + 1);
+            DFS(row, col - 1, route + "L", visited, steps + 1);
+
+            visited[row, col] = false;
+            if (grid[row, col] == 'T')
+                treasureCount++;
         }
     }
 }

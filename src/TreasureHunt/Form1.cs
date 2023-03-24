@@ -53,9 +53,9 @@ namespace TreasureHunt
 
         private void GenerateMaze()
         {
-            maze = new bool[gridSize, gridSize];
-            for (int i = 0; i < gridSize; i++)
-                for (int j = 0; j < gridSize; j++)
+            maze = new bool[grid.GetLength(1), grid.GetLength(0)];
+            for (int i = 0; i < grid.GetLength(1); i++)
+                for (int j = 0; j < grid.GetLength(0); j++)
                     maze[i, j] = false;
             maze[currentX, currentY] = true;
         }
@@ -70,26 +70,26 @@ namespace TreasureHunt
                         if (currentX > 0) currentX--;
                         break;
                     case 'R':
-                        if (currentX < gridSize - 1) currentX++;
+                        if (currentX < grid.GetLength(1) - 1) currentX++;
                         break;
                     case 'U':
                         if (currentY > 0) currentY--;
                         break;
                     case 'D':
-                        if (currentY < gridSize - 1) currentY++;
+                        if (currentY < grid.GetLength(0) - 1) currentY++;
                         break;
                 }
                 maze[currentX, currentY] = true;
                 this.Invalidate();
-                await Task.Delay(500); // Add a delay of 500 milliseconds between each step
+                await Task.Delay(500); // Add a delay
             }
         }
 
         private void Form1_Paint(object? sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            for (int i = 0; i < gridSize; i++)
-                for (int j = 0; j < gridSize; j++)
+            for (int i = 0; i < grid.GetLength(1); i++)
+                for (int j = 0; j < grid.GetLength(0); j++)
                 {
                     if (maze[i, j] == true)
                         g.FillRectangle(Brushes.Yellow, i * cellSize + 197, j * cellSize + 56, cellSize, cellSize);
@@ -119,6 +119,10 @@ namespace TreasureHunt
                 labelFileName.BackColor = Color.Transparent;
                 this.Controls.Add(labelFileName);
                 grid = GetFile.GetGrid(path);
+                if (!GridOperations.IsValidGrid(grid))
+                {
+                    MessageBox.Show("Grid contains non-valid characters.\nPlease input valid grid!");
+                }
                 treasuresCoord = GridOperations.getTreasuresCoord(grid);
                 jellyFishCoord = GridOperations.getJellyFishCoord(grid);
                 startX = GridOperations.getStartCoord(grid).Item2;
@@ -156,6 +160,10 @@ namespace TreasureHunt
             {
                 MessageBox.Show("Please select a correct .txt file.");
             }
+            else if (!GridOperations.IsValidGrid(grid))
+            {
+                MessageBox.Show("Grid contains non-valid characters.\nPlease input valid grid!");
+            }
             else if (!radioButton1.Checked && !radioButton2.Checked)
             {
                 MessageBox.Show("Please select one of the algorithms.");
@@ -168,7 +176,7 @@ namespace TreasureHunt
                 this.Controls.Remove(labelSteps); this.Controls.Remove(labelExTime);
                 searchButton = new Button();
                 searchButton.Text = "Search";
-                searchButton.Location = new Point((gridSize / 2 - 1) * cellSize + 197, gridSize * cellSize + 65);
+                searchButton.Location = new Point((grid.GetLength(1) / 2 - 1) * cellSize + 197, grid.GetLength(0) * cellSize + 65);
                 searchButton.AutoSize = true;
                 searchButton.Click += searchButton_Click;
                 this.Controls.Add(searchButton);
@@ -191,8 +199,8 @@ namespace TreasureHunt
             {
                 var treasureHunter = new TreasureHunterDFS(grid);
                 shortestRoute = treasureHunter.FindShortestRoute();
-                nodes = treasureHunter.countNodes;
-                exTime = treasureHunter.elapsedTime.ElapsedMilliseconds;
+                nodes = treasureHunter.GetNodes();
+                exTime = treasureHunter.GetElapsedTime();
             }
             this.Controls.Remove(labelRoute); this.Controls.Remove(labelNodes);
             this.Controls.Remove(labelSteps); this.Controls.Remove(labelExTime);

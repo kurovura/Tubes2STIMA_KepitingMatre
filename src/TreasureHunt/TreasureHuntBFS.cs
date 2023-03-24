@@ -10,7 +10,6 @@ namespace TreasureHunt
     internal class TreasureHunterBFS
     {
         private char[,] grid;
-        private int gridSize;
         private int startX, startY;
         private List<Tuple<int, int>> treasures = new List<Tuple<int, int>>();
         private Queue<Node> queue = new Queue<Node>();
@@ -21,12 +20,11 @@ namespace TreasureHunt
         public TreasureHunterBFS(char[,] grid)
         {
             this.grid = grid;
-            gridSize = grid.GetLength(0);
-            visited = new bool[gridSize, gridSize, 1 << (gridSize * gridSize)];
+            visited = new bool[grid.GetLength(0), grid.GetLength(1), 1 << (grid.GetLength(0) * grid.GetLength(1))];
 
-            for (int i = 0; i < gridSize; i++)
+            for (int i = 0; i < grid.GetLength(0); i++)
             {
-                for (int j = 0; j < gridSize; j++)
+                for (int j = 0; j < grid.GetLength(1); j++)
                 {
                     if (grid[i, j] == 'K')
                     {
@@ -87,7 +85,7 @@ namespace TreasureHunt
             }
 
             //down
-            if (node.x < gridSize - 1 && grid[node.x + 1, node.y] != 'X')
+            if (node.x < grid.GetLength(0) - 1 && grid[node.x + 1, node.y] != 'X')
             {
                 neighbors.Add(new Node(node.x + 1, node.y, node.path + "D", UpdateCollectedTreasures(node, node.x + 1, node.y)));
             }
@@ -99,7 +97,7 @@ namespace TreasureHunt
             }
 
             //right
-            if (node.y < gridSize - 1 && grid[node.x, node.y + 1] != 'X')
+            if (node.y < grid.GetLength(1) - 1 && grid[node.x, node.y + 1] != 'X')
             {
                 neighbors.Add(new Node(node.x, node.y + 1, node.path + "R", UpdateCollectedTreasures(node, node.x, node.y + 1)));
             }
